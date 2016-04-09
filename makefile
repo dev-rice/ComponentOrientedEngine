@@ -43,10 +43,6 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 run: $(NAME)
 	./$(NAME)
 
-discard:
-	@ git clean -df
-	@ git checkout -- .
-
 clean:
 	rm -rf $(OBJDIR)/
 
