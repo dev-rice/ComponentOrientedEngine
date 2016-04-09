@@ -4,12 +4,14 @@
 #include "OpenGLContext.hpp"
 #include "Entity.hpp"
 #include "EntityManager.hpp"
-#include "component_managers/NameComponentManager.hpp"
 #include "ShaderProgram.hpp"
 #include "ShaderProgramFactory.hpp"
 #include "Mesh.hpp"
 #include "MeshFactory.hpp"
 #include "FlatDrawable.hpp"
+
+#include "component_managers/NameComponentManager.hpp"
+#include "component_managers/MeshComponentManager.hpp"
 
 #include <vector>
 #include <iostream>
@@ -46,6 +48,7 @@ int main(int argc, char* argv[]) {
 
     EntityManager entity_manager;
     NameComponentManager name_component_manager;
+    MeshComponentManager mesh_component_manager;
 
     vector<Entity> entities = {
         entity_manager.create(),
@@ -60,7 +63,11 @@ int main(int argc, char* argv[]) {
 
     MeshFactory mesh_factory;
     Mesh flat_mesh = mesh_factory.createFlatMesh();
-    FlatDrawable flat_drawable(flat_mesh, flat_shader);
+    shared_ptr<Mesh> flat_mesh_ptr = make_shared<Mesh>(flat_mesh);
+
+    mesh_component_manager.setMesh(entities[0], flat_mesh_ptr);
+
+    FlatDrawable flat_drawable(mesh_component_manager.getMesh(entities[0]), flat_shader);
     Transform2D flat_transform;
     flat_transform.setScale(glm::vec2(0.5, 0.5));
 
