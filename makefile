@@ -13,11 +13,6 @@ OBJECTS := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 MAC_LIBRARIES := -framework OpenGl -framework CoreFoundation -I/usr/local/include -lglew -lSOIL `sdl2-config --libs`
 LINUX_LIBRARIES := -lGL -lGLEW -I /usr/lib/x86_64-linux-gnu/ -I /usr/local/include -lSOIL -lpthread `sdl2-config --libs`
 
-PUGIXML_DIR := pugi
-PUGIXML_INCLUDE_DIR := $(PUGIXML_DIR)/include
-
-APP_DIR := apps
-
 NAME := opengl_playground
 
 # Try to auto detect the platform to build for
@@ -30,7 +25,7 @@ else ifeq ($(PLATFORM),Linux)
 endif
 
 $(NAME): obj/main.o $(SOURCES) $(OBJECTS)
-	$(COMPILER) -std=c++11 -I$(SRCDIR) -I$(PUGIXML_INCLUDE_DIR) $(OBJECTS) $(LIBRARIES) -o opengl_playground
+	$(COMPILER) -std=c++11 -I$(SRCDIR) $(OBJECTS) $(LIBRARIES) -o opengl_playground
 
 $(SOURCES): | $(OBJDIR)
 
@@ -38,10 +33,14 @@ $(OBJDIR):
 	mkdir -p $(shell find $(SRCDIR) -type d | sed "s/$(SRCDIR)/$(OBJDIR)/")
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	$(COMPILER) $(COMPILER_FLAGS) -I$(SRCDIR) -I$(PUGIXML_INCLUDE_DIR) $< -c -o $@
+	$(COMPILER) $(COMPILER_FLAGS) -I$(SRCDIR) $< -c -o $@
 
 run: $(NAME)
 	./$(NAME)
+
+discard:
+	@ git clean -df
+	@ git checkout -- .
 
 clean:
 	rm -rf $(OBJDIR)/
