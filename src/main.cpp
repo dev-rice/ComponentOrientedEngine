@@ -5,6 +5,11 @@
 #include "Entity.hpp"
 #include "EntityManager.hpp"
 #include "component_managers/NameComponentManager.hpp"
+#include "ShaderProgram.hpp"
+#include "ShaderProgramFactory.hpp"
+#include "Mesh.hpp"
+#include "MeshFactory.hpp"
+#include "FlatDrawable.hpp"
 
 #include <vector>
 #include <iostream>
@@ -50,10 +55,21 @@ int main(int argc, char* argv[]) {
         entity_manager.create()
     };
 
+    ShaderProgramFactory shader_program_factory;
+    ShaderProgram flat_shader = shader_program_factory.createShaderProgram("shaders/flat.vs", "shaders/flat.fs");
+
+    MeshFactory mesh_factory;
+    Mesh flat_mesh = mesh_factory.createFlatMesh();
+    FlatDrawable flat_drawable(flat_mesh, flat_shader);
+    Transform2D flat_transform;
+    flat_transform.setScale(glm::vec2(0.5, 0.5));
+
     // Display loop
     while(window.isOpen()) {
         window.clearBuffers();
         handleInputs(window);
+
+        flat_drawable.draw(flat_transform);
 
         window.display();
     }
