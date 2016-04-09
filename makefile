@@ -34,6 +34,8 @@ PUGIXML_INCLUDE_DIR := $(PUGIXML_DIR)/include
 
 APP_DIR := apps
 
+NAME := opengl_playground
+
 # Try to auto detect the platform to build for
 ifeq ($(PLATFORM),Darwin)
 	LIBRARIES := $(MAC_LIBRARIES)
@@ -62,8 +64,8 @@ $(OBJDIR)/all_tests.o : $(TEST_SRC)
 all_tests: $(OBJECTS) $(OBJDIR)/all_tests.o
 	$(COMPILER) $^ $(LIBRARIES) -L $(LIBRARY_DIR)/ -l gtest -l gmock $(LOCAL_LIBRARIES) -o $@
 
-run:
-	./opengl_playground
+run: $(NAME)
+	./$(NAME)
 
 discard:
 	@ git clean -df

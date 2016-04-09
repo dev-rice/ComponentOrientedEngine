@@ -2,6 +2,9 @@
 #include "includes/sdl.hpp"
 #include "Window.hpp"
 #include "OpenGLContext.hpp"
+#include "Entity.hpp"
+#include "EntityManager.hpp"
+#include "NameComponentManager.hpp"
 
 #include <vector>
 #include <iostream>
@@ -36,22 +39,22 @@ int main(int argc, char* argv[]) {
     Window window(viewport, false);
     OpenGLContext gl_context(4, 1, window);
 
-    SDL_version compiled;
-    SDL_version linked;
+    EntityManager entity_manager;
+    NameComponentManager name_component_manager;
 
-    SDL_VERSION(&compiled);
-    SDL_GetVersion(&linked);
-    printf("We compiled against SDL version %d.%d.%d ...\n",
-           compiled.major, compiled.minor, compiled.patch);
-    printf("But we are linking against SDL version %d.%d.%d.\n",
-           linked.major, linked.minor, linked.patch);
-
-    cout << "GLEW Version: " << glewGetString(GLEW_VERSION) << "\n";
+    vector<Entity> entities = {
+        entity_manager.create(),
+        entity_manager.create(),
+        entity_manager.create(),
+        entity_manager.create(),
+        entity_manager.create()
+    };
 
     // Display loop
     while(window.isOpen()) {
         window.clearBuffers();
         handleInputs(window);
+
         window.display();
     }
 
