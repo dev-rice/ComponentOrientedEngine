@@ -30,15 +30,11 @@ void handleInputs(Window& window) {
 
 }
 
-
 int main(int argc, char* argv[]) {
 
     Viewport viewport(1600, 900);
     Window window(viewport, false);
     OpenGLContext gl_context(4, 1, window);
-
-    window.setVsync(false);
-
 
     SDL_version compiled;
     SDL_version linked;
