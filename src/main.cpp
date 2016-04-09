@@ -4,7 +4,7 @@
 #include "OpenGLContext.hpp"
 #include "Entity.hpp"
 #include "EntityManager.hpp"
-#include "NameComponentManager.hpp"
+#include "component_managers/NameComponentManager.hpp"
 
 #include <vector>
 #include <iostream>

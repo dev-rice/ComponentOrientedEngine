@@ -8,7 +8,7 @@ SRCEXT  := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 
 OBJDIR  := obj
-OBJECTS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
+OBJECTS := $(SOURCES:src/%.cpp=obj/%.o)
 
 MAC_LIBRARIES := -framework OpenGl -framework CoreFoundation -I/usr/local/include -lglew -lSOIL `sdl2-config --libs`
 LINUX_LIBRARIES := -lGL -lGLEW -I /usr/lib/x86_64-linux-gnu/ -I /usr/local/include -lSOIL -lpthread `sdl2-config --libs`
@@ -45,17 +45,18 @@ else ifeq ($(PLATFORM),Linux)
 	TIMEOUT_SCRIPT := timeout
 endif
 
-opengl_playground: all
-	$(COMPILER) -std=c++11 -I$(SRCDIR) -I$(PUGIXML_INCLUDE_DIR) $(OBJECTS) $(LIBRARIES) $(LOCAL_LIBRARIES) $(APP_DIR)/opengl_playground.$(SRCEXT) -o opengl_playground
+$(NAME): obj/main.o $(SOURCES) $(OBJECTS)
+	$(COMPILER) -std=c++11 -I$(SRCDIR) -I$(PUGIXML_INCLUDE_DIR) $(OBJECTS) $(LIBRARIES) $(LOCAL_LIBRARIES) -o opengl_playground
 
-all: $(OBJDIR) $(SOURCES) $(OBJECTS)
+
+# Ensure the bin/ directories are created.
+$(SOURCES): | $(OBJDIR)
 
 $(OBJDIR):
-	@ mkdir -p $(OBJDIR)
+	mkdir -p $(shell find src -type d | sed "s/src/$(OBJDIR)/")
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	$(COMPILER) $(COMPILER_FLAGS) -I$(SRCDIR) -I$(PUGIXML_INCLUDE_DIR) $< -o $@
-
+	$(COMPILER) $(COMPILER_FLAGS) -I$(SRCDIR) -I$(PUGIXML_INCLUDE_DIR) $< -c -o $@
 
 # Unit Tests
 $(OBJDIR)/all_tests.o : $(TEST_SRC)
@@ -72,8 +73,7 @@ discard:
 	@ git checkout -- .
 
 clean:
-	rm -f $(OBJDIR)/*.o
-	rm -f *.o
+	rm -rf $(OBJDIR)/
 
 dependencies: $(LIBRARY_DIR) google-test google-mock pugixml
 
