@@ -4,8 +4,6 @@
 #include "OpenGLContext.hpp"
 #include "Entity.hpp"
 #include "EntityManager.hpp"
-#include "ShaderProgram.hpp"
-#include "ShaderProgramFactory.hpp"
 #include "Mesh.hpp"
 #include "MeshFactory.hpp"
 #include "FlatDrawable.hpp"
@@ -58,25 +56,17 @@ int main(int argc, char* argv[]) {
         entity_manager.create()
     };
 
-    ShaderProgramFactory shader_program_factory;
-    ShaderProgram flat_shader = shader_program_factory.createShaderProgram("shaders/flat.vs", "shaders/flat.fs");
-
     MeshFactory mesh_factory;
     Mesh flat_mesh = mesh_factory.createFlatMesh();
     shared_ptr<Mesh> flat_mesh_ptr = make_shared<Mesh>(flat_mesh);
-
     mesh_component_manager.setMesh(entities[0], flat_mesh_ptr);
-
-    FlatDrawable flat_drawable(mesh_component_manager.getMesh(entities[0]), flat_shader);
-    Transform2D flat_transform;
-    flat_transform.setScale(glm::vec2(0.5, 0.5));
 
     // Display loop
     while(window.isOpen()) {
         window.clearBuffers();
         handleInputs(window);
 
-        flat_drawable.draw(flat_transform);
+        mesh_component_manager.update();
 
         window.display();
     }
