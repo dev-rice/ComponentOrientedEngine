@@ -12,15 +12,14 @@ void SpriteDrawableComponentManager::registerEntity(Entity entity) {
     entities.push_back(entity);
 }
 
-void SpriteDrawableComponentManager::update(MeshComponentManager& mesh_component_manager) {
+void SpriteDrawableComponentManager::update(Transform2DComponentManager& transform_2D_component_manager, MeshComponentManager& mesh_component_manager) {
 
     for (auto& entity: entities) {
-        Mesh& mesh = mesh_component_manager.getMesh(entity);
-        FlatDrawable flat_drawable(mesh, flat_shader);
-        Transform2D flat_transform;
-        flat_transform.setScale(glm::vec2(0.5, 0.5));
+        Mesh& entity_mesh = mesh_component_manager.getMesh(entity);
+        Transform2D entity_transform_2D = transform_2D_component_manager.getTransform(entity);
 
-        flat_drawable.draw(flat_transform);
+        FlatDrawable flat_drawable(entity_mesh, flat_shader);
+        flat_drawable.draw(entity_transform_2D);
 
     }
 

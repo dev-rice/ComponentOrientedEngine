@@ -10,7 +10,7 @@ glm::mat3 Transform2D::getTransformationMatrix() {
 }
 
 glm::mat3 Transform2D::calculateTransformationMatrix() {
-    return getScaleMatrix() *  getTranslationMatrix();
+    return getScaleMatrix() * getTranslationMatrix();
 }
 
 glm::mat3 Transform2D::getTranslationMatrix() {

@@ -8,6 +8,7 @@
 #include "MeshFactory.hpp"
 #include "FlatDrawable.hpp"
 
+#include "component_managers/Transform2DComponentManager.hpp"
 #include "component_managers/NameComponentManager.hpp"
 #include "component_managers/MeshComponentManager.hpp"
 #include "component_managers/SpriteDrawableComponentManager.hpp"
@@ -46,6 +47,8 @@ int main(int argc, char* argv[]) {
     OpenGLContext gl_context(4, 1, window);
 
     EntityManager entity_manager;
+
+    Transform2DComponentManager transform_2D_component_manager;
     NameComponentManager name_component_manager;
     MeshComponentManager mesh_component_manager;
     SpriteDrawableComponentManager sprite_drawable_component_manager;
@@ -61,7 +64,10 @@ int main(int argc, char* argv[]) {
     MeshFactory mesh_factory;
     Mesh flat_mesh = mesh_factory.createFlatMesh();
     shared_ptr<Mesh> flat_mesh_ptr = make_shared<Mesh>(flat_mesh);
+    Transform2D transform_2D;
+    transform_2D.setScale(glm::vec2(0.1, 0.5));
 
+    transform_2D_component_manager.setTransform(entities[0], transform_2D);
     mesh_component_manager.setMesh(entities[0], flat_mesh_ptr);
     name_component_manager.setName(entities[0], "Snorlax");
     sprite_drawable_component_manager.registerEntity(entities[0]);
@@ -71,7 +77,7 @@ int main(int argc, char* argv[]) {
         window.clearBuffers();
         handleInputs(window);
 
-        sprite_drawable_component_manager.update(mesh_component_manager);
+        sprite_drawable_component_manager.update(transform_2D_component_manager, mesh_component_manager);
 
         window.display();
     }
