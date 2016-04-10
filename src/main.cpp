@@ -10,6 +10,7 @@
 
 #include "component_managers/NameComponentManager.hpp"
 #include "component_managers/MeshComponentManager.hpp"
+#include "component_managers/SpriteDrawableComponentManager.hpp"
 
 #include <vector>
 #include <iostream>
@@ -47,6 +48,7 @@ int main(int argc, char* argv[]) {
     EntityManager entity_manager;
     NameComponentManager name_component_manager;
     MeshComponentManager mesh_component_manager;
+    SpriteDrawableComponentManager sprite_drawable_component_manager;
 
     vector<Entity> entities = {
         entity_manager.create(),
@@ -62,13 +64,14 @@ int main(int argc, char* argv[]) {
 
     mesh_component_manager.setMesh(entities[0], flat_mesh_ptr);
     name_component_manager.setName(entities[0], "Snorlax");
+    sprite_drawable_component_manager.registerEntity(entities[0]);
 
     // Display loop
     while(window.isOpen()) {
         window.clearBuffers();
         handleInputs(window);
 
-        mesh_component_manager.update();
+        sprite_drawable_component_manager.update(mesh_component_manager);
 
         window.display();
     }

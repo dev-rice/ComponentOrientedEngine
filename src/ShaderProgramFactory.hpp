@@ -14,7 +14,7 @@ using namespace std;
 
 class ShaderProgramFactory {
 public:
-    ShaderProgram createShaderProgram(string vertex_shader_filename, string fragment_shader_filename);
+    static ShaderProgram createShaderProgram(string vertex_shader_filename, string fragment_shader_filename);
 
 private:
 
