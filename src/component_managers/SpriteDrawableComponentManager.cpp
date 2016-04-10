@@ -1,11 +1,10 @@
 #include "SpriteDrawableComponentManager.hpp"
 
-#include "ShaderProgramFactory.hpp"
 #include "FlatDrawable.hpp"
 #include "Transform2D.hpp"
 
 SpriteDrawableComponentManager::SpriteDrawableComponentManager() {
-    flat_shader = ShaderProgramFactory::createShaderProgram("shaders/flat.vs", "shaders/flat.fs");
+    flat_shader = ShaderProgram::createFromFiles("shaders/flat.vs", "shaders/flat.fs");
 }
 
 void SpriteDrawableComponentManager::registerEntity(Entity entity) {

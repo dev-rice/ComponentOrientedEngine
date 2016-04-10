@@ -12,6 +12,14 @@ ShaderProgram::ShaderProgram(ShaderFile& vertex_shader, ShaderFile& fragment_sha
     link();
 }
 
+ShaderProgram ShaderProgram::createFromFiles(string vertex_shader_filename, string fragment_shader_filename) {
+
+    ShaderFile vertex_shader(vertex_shader_filename, GL_VERTEX_SHADER);
+    ShaderFile fragment_shader(fragment_shader_filename, GL_FRAGMENT_SHADER);
+
+    return ShaderProgram(vertex_shader, fragment_shader);
+}
+
 void ShaderProgram::create() {
     gl_shader_id = glCreateProgram();
 }

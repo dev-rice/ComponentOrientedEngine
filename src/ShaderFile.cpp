@@ -1,8 +1,8 @@
 #include "ShaderFile.hpp"
 
-ShaderFile::ShaderFile(string filename, unique_ptr<ShaderCreator> shader_creator) : filename(filename), shader_creator(move(shader_creator)) {
+ShaderFile::ShaderFile(string filename, GLuint shader_type) : filename(filename), shader_type(shader_type) {
 
-    setGLId(loadShader(filename));
+    setGLId(loadShader());
     printErrors();
 }
 
@@ -42,14 +42,10 @@ bool ShaderFile::hasErrors() {
     return status != GL_TRUE;
 }
 
-string ShaderFile::getFileContents(string filename) {
+string ShaderFile::getFileContents() {
     ifstream input_stream(filename);
     string contents((istreambuf_iterator<char>(input_stream)), istreambuf_iterator<char>());
     return contents;
-}
-
-ShaderCreator& ShaderFile::getShaderCreator() {
-    return *shader_creator;
 }
 
 void ShaderFile::printErrors() {
@@ -58,10 +54,18 @@ void ShaderFile::printErrors() {
     }
 }
 
-GLuint ShaderFile::loadShader(string filename){
-    GLuint shader = getShaderCreator().create();
+GLuint ShaderFile::createShader() {
+    if (shader_type == GL_VERTEX_SHADER){
+        return glCreateShader(GL_VERTEX_SHADER);
+    } else {
+        return glCreateShader(GL_FRAGMENT_SHADER);
+    }
+}
 
-    string contents = getFileContents(filename);
+GLuint ShaderFile::loadShader(){
+    GLuint shader = createShader();
+
+    string contents = getFileContents();
     const char* contents_as_cstr = contents.c_str();
 
     glShaderSource(shader, 1, &contents_as_cstr, NULL);

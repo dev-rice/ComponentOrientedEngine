@@ -16,6 +16,8 @@ public:
     ShaderProgram();
     ShaderProgram(ShaderFile& vertex_shader, ShaderFile& fragment_shader);
 
+    static ShaderProgram createFromFiles(string vertex_shader_filename, string fragment_shader_filename);
+
     void use();
     GLint getUniformLocation(string uniform_name);
     GLint getAttributeLocation(string attribute_name);
