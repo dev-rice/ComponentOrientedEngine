@@ -7,12 +7,12 @@ Mesh::Mesh(MeshData& mesh_data, VertexSpecification& vertex_specification) : ver
 
 void Mesh::sendMeshDataToOpenGL(MeshData& mesh_data) {
     createVAO();
-    createVBO(mesh_data.getVertices());
-    createEBO(mesh_data.getElements());
+    createVBO(mesh_data.vertices);
+    createEBO(mesh_data.elements);
 }
 
 void Mesh::setMeshStatsFromMeshData(MeshData& mesh_data) {
-    setNumberOfElements(mesh_data.getElements().size());
+    setNumberOfElements(mesh_data.elements.size());
 }
 
 void Mesh::createVAO() {

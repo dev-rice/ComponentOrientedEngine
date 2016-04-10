@@ -5,6 +5,11 @@ Transform2D::Transform2D() {
     setPositionOfCenter(glm::vec2(0, 0));
 }
 
+Transform2D::Transform2D(glm::vec2 scale, glm::vec2 position_of_center) : scale(scale), position_of_center(position_of_center) { 
+
+}
+
+
 glm::mat3 Transform2D::getTransformationMatrix() {
     return calculateTransformationMatrix();
 }

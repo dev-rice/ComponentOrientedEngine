@@ -2,7 +2,6 @@
 #define MeshFactory_h
 
 #include "VertexSpecification.hpp"
-#include "MeshData.hpp"
 #include "Mesh.hpp"
 
 class MeshFactory {

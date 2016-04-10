@@ -8,9 +8,17 @@
 
 #include "ShaderProgram.hpp"
 #include "VertexSpecification.hpp"
-#include "MeshData.hpp"
 
 using namespace std;
+
+struct MeshData {
+public:
+    MeshData(vector<GLfloat>& vertices, vector<GLuint>& elements) : vertices(vertices), elements(elements) {};
+
+    vector<GLfloat>& vertices;
+    vector<GLuint>& elements;
+
+};
 
 class Mesh {
 public:

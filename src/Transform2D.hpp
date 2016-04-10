@@ -7,6 +7,7 @@ class Transform2D {
 public:
 
     Transform2D();
+    Transform2D(glm::vec2 scale, glm::vec2 position_of_center);
 
     void setScale(glm::vec2 scale);
     void setPositionOfCenter(glm::vec2 position_of_center);
@@ -25,8 +26,8 @@ private:
     glm::mat3 calculateTranslationMatrix();
     glm::mat3 calculateScaleMatrix();
 
-    glm::vec2 position_of_center;
     glm::vec2 scale;
+    glm::vec2 position_of_center;
 
 };
 

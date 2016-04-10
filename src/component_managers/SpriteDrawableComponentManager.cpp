@@ -16,7 +16,7 @@ void SpriteDrawableComponentManager::update(Transform2DComponentManager& transfo
 
     for (auto& entity: entities) {
         Mesh& entity_mesh = mesh_component_manager.getMesh(entity);
-        Transform2D entity_transform_2D = transform_2D_component_manager.getTransform(entity);
+        Transform2D& entity_transform_2D = transform_2D_component_manager.getTransform(entity);
 
         FlatDrawable flat_drawable(entity_mesh, flat_shader);
         flat_drawable.draw(entity_transform_2D);

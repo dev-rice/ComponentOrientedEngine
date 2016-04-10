@@ -53,24 +53,28 @@ int main(int argc, char* argv[]) {
     MeshComponentManager mesh_component_manager;
     SpriteDrawableComponentManager sprite_drawable_component_manager;
 
-    vector<Entity> entities = {
-        entity_manager.create(),
-        entity_manager.create(),
-        entity_manager.create(),
-        entity_manager.create(),
-        entity_manager.create()
-    };
-
     MeshFactory mesh_factory;
     Mesh flat_mesh = mesh_factory.createFlatMesh();
     shared_ptr<Mesh> flat_mesh_ptr = make_shared<Mesh>(flat_mesh);
-    Transform2D transform_2D;
-    transform_2D.setScale(glm::vec2(0.1, 0.5));
 
-    transform_2D_component_manager.setTransform(entities[0], transform_2D);
-    mesh_component_manager.setMesh(entities[0], flat_mesh_ptr);
-    name_component_manager.setName(entities[0], "Snorlax");
-    sprite_drawable_component_manager.registerEntity(entities[0]);
+    Entity entity_a = entity_manager.create();
+    transform_2D_component_manager.setTransform(entity_a, Transform2D(glm::vec2(0.1, 0.5), glm::vec2(0, 0)));
+    mesh_component_manager.setMesh(entity_a, flat_mesh_ptr);
+    name_component_manager.setName(entity_a, "Snorlax");
+    sprite_drawable_component_manager.registerEntity(entity_a);
+
+
+    Entity entity_b = entity_manager.create();
+    transform_2D_component_manager.setTransform(entity_b, Transform2D(glm::vec2(0.2, 0.2), glm::vec2(0.5, 0.5)));
+    mesh_component_manager.setMesh(entity_b, flat_mesh_ptr);
+    name_component_manager.setName(entity_b, "Gengar");
+    sprite_drawable_component_manager.registerEntity(entity_b);
+
+    Entity entity_c = entity_manager.create();
+    transform_2D_component_manager.setTransform(entity_c, Transform2D(glm::vec2(0.05, 0.05), glm::vec2(0.1, -0.9)));
+    mesh_component_manager.setMesh(entity_c, flat_mesh_ptr);
+    name_component_manager.setName(entity_c, "Eevee");
+    sprite_drawable_component_manager.registerEntity(entity_c);
 
     // Display loop
     while(window.isOpen()) {

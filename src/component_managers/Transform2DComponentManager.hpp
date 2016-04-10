@@ -9,7 +9,7 @@
 class Transform2DComponentManager {
 public:
     void setTransform(Entity e, Transform2D transform);
-    Transform2D getTransform(Entity e);
+    Transform2D& getTransform(Entity e);
 private:
     std::map<Entity, Transform2D> entity_transform_map;
 
