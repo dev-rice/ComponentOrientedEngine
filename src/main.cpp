@@ -59,7 +59,9 @@ int main(int argc, char* argv[]) {
     MeshFactory mesh_factory;
     Mesh flat_mesh = mesh_factory.createFlatMesh();
     shared_ptr<Mesh> flat_mesh_ptr = make_shared<Mesh>(flat_mesh);
+
     mesh_component_manager.setMesh(entities[0], flat_mesh_ptr);
+    name_component_manager.setName(entities[0], "Snorlax");
 
     // Display loop
     while(window.isOpen()) {
