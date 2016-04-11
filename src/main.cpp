@@ -33,8 +33,7 @@ int main(int argc, char* argv[]) {
     Window window(viewport, false);
     OpenGLContext gl_context(4, 1, window);
 
-    MeshFactory mesh_factory;
-    Mesh flat_mesh = mesh_factory.createFlatMesh();
+    Mesh flat_mesh = MeshFactory::createFlatMesh();
     shared_ptr<Mesh> flat_mesh_ptr = make_shared<Mesh>(flat_mesh);
 
     float aspect_ratio = viewport.getAspectRatio();

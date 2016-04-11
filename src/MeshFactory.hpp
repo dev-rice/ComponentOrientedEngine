@@ -7,13 +7,9 @@
 class MeshFactory {
 public:
 
-    MeshFactory();
-
-    Mesh createFlatMesh();
+    static Mesh createFlatMesh();
 
 private:
-
-    VertexSpecification flat_mesh_vertex_specification;
 };
 
 #endif

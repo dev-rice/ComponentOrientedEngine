@@ -1,11 +1,11 @@
 #include "MeshFactory.hpp"
 
-MeshFactory::MeshFactory() {
+Mesh MeshFactory::createFlatMesh() {
+    VertexSpecification flat_mesh_vertex_specification;
+
     flat_mesh_vertex_specification.addAttribute(VertexAttribute("position", 2, 0));
     flat_mesh_vertex_specification.addAttribute(VertexAttribute("texture_coordinates", 2, 2));
-}
 
-Mesh MeshFactory::createFlatMesh() {
     vector<GLfloat> vertices = {
              -1.0f,  1.0f,  0.0f, 0.0f,
              -1.0f, -1.0f,  0.0f, 1.0f,

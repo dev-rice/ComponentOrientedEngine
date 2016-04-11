@@ -22,7 +22,7 @@ public:
 
 class Mesh {
 public:
-    Mesh(MeshData& mesh_data, VertexSpecification& vertex_specification);
+    Mesh(MeshData& mesh_data, VertexSpecification vertex_specification);
 
     void draw();
     void prepareToBeDrawn();
@@ -53,7 +53,7 @@ private:
     GLuint vbo;
     GLuint ebo;
     int number_of_elements;
-    VertexSpecification& vertex_specification;
+    VertexSpecification vertex_specification;
 };
 
 #endif
