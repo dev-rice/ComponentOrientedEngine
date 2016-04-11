@@ -1,0 +1,60 @@
+{
+    "entities": [
+        {
+            "nameComponent": "Background",
+            "transform2DComponent": {
+                "scale_x": 1.0,
+                "scale_y": 1.0,
+                "position_x": 0,
+                "position_y": 0
+            },
+            "spriteDrawableComponent": {
+                "color": {
+                    "red": 0.9,
+                    "green": 0.9,
+                    "blue": 0.9,
+                    "alpha": 1.0
+                }
+            }
+        },
+
+        {
+            "nameComponent": "Snorlax",
+            "transform2DComponent": {
+                "scale_x": 0.1,
+                "scale_y": 0.1,
+                "position_x": 0,
+                "position_y": 0
+            },
+            "spriteDrawableComponent": {
+                "sprite": "res/sprites/snorlax.png"
+            }
+        },
+
+        {
+            "nameComponent": "Arcanine",
+            "transform2DComponent": {
+                "scale_x": 0.1,
+                "scale_y": 0.1,
+                "position_x": 0.25,
+                "position_y": 0
+            },
+            "spriteDrawableComponent": {
+                "sprite": "res/sprites/arcanine.png"
+            }
+        },
+
+        {
+            "nameComponent": "Gengar",
+            "transform2DComponent": {
+                "scale_x": 0.1,
+                "scale_y": 0.1,
+                "position_x": -0.25,
+                "position_y": 0
+            },
+            "spriteDrawableComponent": {
+                "sprite": "res/sprites/gengar.png"
+            }
+        }
+    ]
+}

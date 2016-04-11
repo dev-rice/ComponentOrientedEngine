@@ -14,6 +14,10 @@
 class Scene {
 public:
     Scene(float aspect_ratio);
+    Scene(float aspect_ratio, string filename);
+
+    static Scene fromFile(string filename);
+
     void update();
 
 private:

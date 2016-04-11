@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     OpenGLContext gl_context(4, 1, window);
 
     float aspect_ratio = viewport.getAspectRatio();
-    Scene scene(aspect_ratio);
+    Scene scene = Scene::fromFile("res/scenes/test_scene.json");
 
     // Display loop
     while(window.isOpen()) {
