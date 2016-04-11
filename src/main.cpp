@@ -13,6 +13,9 @@
 #include "component_managers/MeshComponentManager.hpp"
 #include "component_managers/SpriteDrawableComponentManager.hpp"
 
+#include "components/SpriteDrawableComponent.hpp"
+
+
 #include <vector>
 #include <iostream>
 #include <cmath>
@@ -22,8 +25,6 @@
 using namespace std;
 
 void handleInputs(Window& window) {
-    // Misleading argument and function name combination. The input handling does not draw from the mouse or window at all, it simply does things with them
-
     // Key repeat delay input
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
@@ -61,20 +62,19 @@ int main(int argc, char* argv[]) {
     transform_2D_component_manager.setTransform(entity_a, Transform2D(glm::vec2(0.1, 0.5), glm::vec2(0, 0)));
     mesh_component_manager.setMesh(entity_a, flat_mesh_ptr);
     name_component_manager.setName(entity_a, "Snorlax");
-    sprite_drawable_component_manager.registerEntity(entity_a);
-
+    sprite_drawable_component_manager.setSpriteDrawableComponent(entity_a, SpriteDrawableComponent());
 
     Entity entity_b = entity_manager.create();
     transform_2D_component_manager.setTransform(entity_b, Transform2D(glm::vec2(0.2, 0.2), glm::vec2(0.5, 0.5)));
     mesh_component_manager.setMesh(entity_b, flat_mesh_ptr);
     name_component_manager.setName(entity_b, "Gengar");
-    sprite_drawable_component_manager.registerEntity(entity_b);
+    sprite_drawable_component_manager.setSpriteDrawableComponent(entity_b, SpriteDrawableComponent());
 
     Entity entity_c = entity_manager.create();
     transform_2D_component_manager.setTransform(entity_c, Transform2D(glm::vec2(0.05, 0.05), glm::vec2(0.1, -0.9)));
     mesh_component_manager.setMesh(entity_c, flat_mesh_ptr);
     name_component_manager.setName(entity_c, "Eevee");
-    sprite_drawable_component_manager.registerEntity(entity_c);
+    sprite_drawable_component_manager.setSpriteDrawableComponent(entity_c, SpriteDrawableComponent());
 
     // Display loop
     while(window.isOpen()) {
