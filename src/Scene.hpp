@@ -13,14 +13,13 @@
 
 class Scene {
 public:
-    Scene(float aspect_ratio);
-    Scene(float aspect_ratio, string filename);
-
     static Scene fromFile(string filename);
 
     void update();
 
 private:
+    Scene(float aspect_ratio, string filename);
+
     EntityManager entity_manager;
 
     Transform2DComponentManager transform_2D_component_manager;
