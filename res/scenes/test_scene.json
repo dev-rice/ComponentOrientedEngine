@@ -1,14 +1,14 @@
 {
     "entities": [
         {
-            "nameComponent": "Background",
-            "transform2DComponent": {
+            "NameComponent": "Background",
+            "Transform2DComponent": {
                 "scale_x": 1.0,
                 "scale_y": 1.0,
                 "position_x": 0,
                 "position_y": 0
             },
-            "spriteDrawableComponent": {
+            "SpriteDrawableComponent": {
                 "color": {
                     "red": 0.9,
                     "green": 0.9,
@@ -19,53 +19,53 @@
         },
 
         {
-            "nameComponent": "Snorlax",
-            "transform2DComponent": {
+            "NameComponent": "Snorlax",
+            "Transform2DComponent": {
                 "scale_x": 0.1,
                 "scale_y": 0.1,
                 "position_x": 0,
                 "position_y": 0
             },
-            "spriteDrawableComponent": {
+            "SpriteDrawableComponent": {
                 "sprite": "res/sprites/snorlax.png"
             }
         },
 
         {
-            "nameComponent": "Arcanine",
-            "transform2DComponent": {
+            "NameComponent": "Arcanine",
+            "Transform2DComponent": {
                 "scale_x": 0.1,
                 "scale_y": 0.1,
                 "position_x": 0.25,
                 "position_y": 0
             },
-            "spriteDrawableComponent": {
+            "SpriteDrawableComponent": {
                 "sprite": "res/sprites/arcanine.png"
             }
         },
 
         {
-            "nameComponent": "Gengar",
-            "transform2DComponent": {
+            "NameComponent": "Gengar",
+            "Transform2DComponent": {
                 "scale_x": 0.1,
                 "scale_y": 0.1,
                 "position_x": -0.25,
                 "position_y": 0
             },
-            "spriteDrawableComponent": {
+            "SpriteDrawableComponent": {
                 "sprite": "res/sprites/gengar.png"
             }
         },
 
         {
-            "nameComponent": "Trainer",
-            "transform2DComponent": {
+            "NameComponent": "Trainer",
+            "Transform2DComponent": {
                 "scale_x": 0.1,
                 "scale_y": 0.1,
                 "position_x": 0,
                 "position_y": 0.5
             },
-            "spriteDrawableComponent": {
+            "SpriteDrawableComponent": {
                 "sprite": "res/sprites/trainer_sprites.png"
             }
         }

@@ -33,8 +33,8 @@ Scene::Scene(float aspect_ratio, string filename) : aspect_ratio(aspect_ratio) {
     for (auto& entity_json : entities_json) {
         Entity entity = entity_manager.create();
 
-        if (entity_json.isMember("transform2DComponent")) {
-            Json::Value transform2D_json = entity_json["transform2DComponent"];
+        if (entity_json.isMember("Transform2DComponent")) {
+            Json::Value transform2D_json = entity_json["Transform2DComponent"];
             glm::vec2 scale(transform2D_json["scale_x"].asFloat(), transform2D_json["scale_y"].asFloat() * aspect_ratio);
             glm::vec2 position(transform2D_json["position_x"].asFloat(), transform2D_json["position_y"].asFloat());
 
@@ -43,13 +43,13 @@ Scene::Scene(float aspect_ratio, string filename) : aspect_ratio(aspect_ratio) {
 
         }
 
-        if (entity_json.isMember("nameComponent")) {
+        if (entity_json.isMember("NameComponent")) {
             string name = entity_json["name"].asString();
             name_component_manager.setName(entity, name);
         }
 
-        if (entity_json.isMember("spriteDrawableComponent")) {
-            Json::Value sprite_drawable_component_json = entity_json["spriteDrawableComponent"];
+        if (entity_json.isMember("SpriteDrawableComponent")) {
+            Json::Value sprite_drawable_component_json = entity_json["SpriteDrawableComponent"];
 
             if (sprite_drawable_component_json.isMember("sprite")) {
                 string sprite_filename = sprite_drawable_component_json["sprite"].asString();
