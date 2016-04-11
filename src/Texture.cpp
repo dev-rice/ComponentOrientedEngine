@@ -10,7 +10,7 @@ Texture Texture::createFromFile(string filepath) {
 }
 
 Texture::Texture(string filepath) {
-    loadTextureFromFile(filepath, GL_LINEAR, true);
+    loadTextureFromFile(filepath, GL_NEAREST, true);
 }
 
 GLuint Texture::getGLId() {
