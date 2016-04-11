@@ -1,9 +1,12 @@
 #include "MeshComponentManager.hpp"
 
-void MeshComponentManager::setMesh(Entity entity, shared_ptr<Mesh> mesh) {
-    entity_to_mesh_map[entity] = mesh;
+#include "MeshFactory.hpp"
+
+
+MeshComponentManager::MeshComponentManager(): flat_mesh(MeshFactory::createFlatMesh()) {
+
 }
 
 Mesh& MeshComponentManager::getMesh(Entity entity) {
-    return *entity_to_mesh_map[entity];
+    return flat_mesh;
 }

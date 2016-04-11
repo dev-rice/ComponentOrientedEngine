@@ -33,11 +33,8 @@ int main(int argc, char* argv[]) {
     Window window(viewport, false);
     OpenGLContext gl_context(4, 1, window);
 
-    Mesh flat_mesh = MeshFactory::createFlatMesh();
-    shared_ptr<Mesh> flat_mesh_ptr = make_shared<Mesh>(flat_mesh);
-
     float aspect_ratio = viewport.getAspectRatio();
-    Scene scene(aspect_ratio, flat_mesh_ptr);
+    Scene scene(aspect_ratio);
 
     // Display loop
     while(window.isOpen()) {

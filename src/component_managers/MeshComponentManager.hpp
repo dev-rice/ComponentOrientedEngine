@@ -10,12 +10,12 @@
 
 class MeshComponentManager {
 public:
-    void setMesh(Entity entity, shared_ptr<Mesh> mesh);
+    MeshComponentManager();
     Mesh& getMesh(Entity entity);
 
 private:
     std::map<Entity, shared_ptr<Mesh>> entity_to_mesh_map;
-
+    Mesh flat_mesh;
 };
 
 #endif

@@ -13,7 +13,7 @@
 
 class Scene {
 public:
-    Scene(float aspect_ratio, shared_ptr<Mesh> flat_mesh_ptr);
+    Scene(float aspect_ratio);
     void update();
 
 private:
@@ -25,7 +25,6 @@ private:
     SpriteDrawableComponentManager sprite_drawable_component_manager;
 
     float aspect_ratio;
-    shared_ptr<Mesh> flat_mesh_ptr;
 
 };
 
