@@ -65,7 +65,7 @@ Scene::Scene(float aspect_ratio, string filename) : aspect_ratio(aspect_ratio) {
 
         if (entity_json.isMember("transform2DComponent")) {
             Json::Value transform2D_json = entity_json["transform2DComponent"];
-            glm::vec2 scale(transform2D_json["scale_x"].asFloat(), transform2D_json["scale_y"].asFloat());
+            glm::vec2 scale(transform2D_json["scale_x"].asFloat(), transform2D_json["scale_y"].asFloat() * aspect_ratio);
             glm::vec2 position(transform2D_json["position_x"].asFloat(), transform2D_json["position_y"].asFloat());
 
             Transform2D transform2D(scale, position);
@@ -103,7 +103,7 @@ Scene::Scene(float aspect_ratio, string filename) : aspect_ratio(aspect_ratio) {
 }
 
 Scene Scene::fromFile(string filename) {
-    return Scene(16.0 / 9.0, filename);
+    return Scene(4.0 / 3.0, filename);
 }
 
 void Scene::update() {

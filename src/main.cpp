@@ -29,7 +29,7 @@ void handleInputs(Window& window) {
 
 int main(int argc, char* argv[]) {
 
-    Viewport viewport(1600, 900);
+    Viewport viewport(800, 600);
     Window window(viewport, false);
     OpenGLContext gl_context(4, 1, window);
 
