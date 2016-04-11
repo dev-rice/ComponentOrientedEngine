@@ -5,12 +5,27 @@ Texture::Texture() {
     loadTextureFromBytes(data, 1, 1, GL_LINEAR, false);
 }
 
+Texture::Texture(string filepath) {
+    loadTextureFromFile(filepath, GL_NEAREST, true);
+}
+
+Texture::Texture(glm::vec4 color) {
+    GLubyte red = 255 * color.r;
+    GLubyte green = 255 * color.g;
+    GLubyte blue = 255 * color.b;
+    GLubyte alpha = 255 * color.a;
+
+    GLubyte data[4] = {red, green, blue, alpha};
+
+    loadTextureFromBytes(data, 1, 1, GL_LINEAR, false);
+}
+
 Texture Texture::createFromFile(string filepath) {
     return Texture(filepath);
 }
 
-Texture::Texture(string filepath) {
-    loadTextureFromFile(filepath, GL_NEAREST, true);
+Texture Texture::createFromColor(glm::vec4 color) {
+    return Texture(color);
 }
 
 GLuint Texture::getGLId() {

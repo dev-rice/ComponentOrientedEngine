@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "includes/gl.hpp"
+#include "includes/glm.hpp"
 #include "includes/sdl.hpp"
 #include "includes/soil.hpp"
 
@@ -15,11 +16,13 @@ public:
     Texture();
 
     static Texture createFromFile(string filepath);
+    static Texture createFromColor(glm::vec4 color);
 
     GLuint getGLId();
     void bind(GLenum target);
 private:
     Texture(string filename);
+    Texture(glm::vec4 color);
 
     void create();
 

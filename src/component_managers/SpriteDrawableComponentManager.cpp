@@ -15,7 +15,9 @@ SpriteDrawableComponent& SpriteDrawableComponentManager::getSpriteDrawableCompon
     return entity_sprite_drawable_component_map[entity];
 }
 
-void SpriteDrawableComponentManager::update(Transform2DComponentManager& transform_2D_component_manager, MeshComponentManager& mesh_component_manager) {
+void SpriteDrawableComponentManager::update(Transform2DComponentManager& transform_2D_component_manager, MeshComponentManager& mesh_component_manager, NameComponentManager& name_component_manager) {
+
+    glDisable(GL_DEPTH_TEST);
 
     for (auto& key_value: entity_sprite_drawable_component_map) {
         Entity entity = key_value.first;
@@ -24,8 +26,8 @@ void SpriteDrawableComponentManager::update(Transform2DComponentManager& transfo
 
         getSpriteDrawableComponent(entity).draw(entity_mesh, entity_transform_2D);
 
-
-
     }
+
+    glEnable(GL_DEPTH_TEST);
 
 }
