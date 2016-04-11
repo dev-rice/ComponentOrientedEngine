@@ -1,5 +1,7 @@
 #include "SpriteDrawableComponentManager.hpp"
 
+#include <iostream>
+
 #include "FlatDrawable.hpp"
 #include "Transform2D.hpp"
 
@@ -19,6 +21,7 @@ void SpriteDrawableComponentManager::update(Transform2DComponentManager& transfo
         Entity entity = key_value.first;
         Mesh& entity_mesh = mesh_component_manager.getMesh(entity);
         Transform2D& entity_transform_2D = transform_2D_component_manager.getTransform(entity);
+
         getSpriteDrawableComponent(entity).draw(entity_mesh, entity_transform_2D);
 
 

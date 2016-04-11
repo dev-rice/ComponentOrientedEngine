@@ -1,5 +1,7 @@
 #include "SpriteDrawableComponent.hpp"
 
+#include <iostream>
+
 SpriteDrawableComponent::SpriteDrawableComponent() {
 
 }
