@@ -1,6 +1,10 @@
 #include "SpriteDrawableComponent.hpp"
 
-SpriteDrawableComponent::SpriteDrawableComponent() : texture(Texture::createFromFile("res/snorlax.png")) {
+SpriteDrawableComponent::SpriteDrawableComponent() {
+
+}
+
+SpriteDrawableComponent::SpriteDrawableComponent(Texture texture) : texture(texture) {
 
     flat_shader = ShaderProgram::createFromFiles("shaders/flat.vs", "shaders/flat.fs");
 }

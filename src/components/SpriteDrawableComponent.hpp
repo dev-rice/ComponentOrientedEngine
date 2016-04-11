@@ -10,6 +10,7 @@
 class SpriteDrawableComponent {
 public:
     SpriteDrawableComponent();
+    SpriteDrawableComponent(Texture texture);
     void draw(Mesh& mesh, Transform2D& transform_2D);
 private:
     ShaderProgram flat_shader;
