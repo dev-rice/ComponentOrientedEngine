@@ -5,13 +5,15 @@
 #include "Transform2D.hpp"
 #include "FlatDrawable.hpp"
 #include "ShaderProgram.hpp"
+#include "Texture.hpp"
 
 class SpriteDrawableComponent {
 public:
     SpriteDrawableComponent();
-    void draw(Mesh& mesh, Transform2D& transform2D);
+    void draw(Mesh& mesh, Transform2D& transform_2D);
 private:
     ShaderProgram flat_shader;
+    Texture texture;
 
 };
 

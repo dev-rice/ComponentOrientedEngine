@@ -10,6 +10,7 @@ ShaderProgram::ShaderProgram(ShaderFile& vertex_shader, ShaderFile& fragment_sha
     combineShaderPrograms(vertex_shader, fragment_shader);
     bindFragmentDataLocation();
     link();
+    printErrors();
 }
 
 ShaderProgram ShaderProgram::createFromFiles(string vertex_shader_filename, string fragment_shader_filename) {
@@ -53,4 +54,25 @@ void ShaderProgram::bindFragmentDataLocation() {
 
 void ShaderProgram::link() {
     glLinkProgram(gl_shader_id);
+}
+
+string ShaderProgram::getErrors() {
+    char info_log[512] = "";
+    if (hasErrors()){
+        glGetProgramInfoLog(getGLId(), 512, NULL, info_log);
+    }
+
+    return string(info_log);
+}
+
+bool ShaderProgram::hasErrors() {
+    GLint status;
+    glGetProgramiv(getGLId(), GL_LINK_STATUS, &status);
+    return status == GL_FALSE;
+}
+
+void ShaderProgram::printErrors() {
+    if (hasErrors()) {
+        cout << "Error linking shader:\n" << getErrors() << "\n";
+    }
 }

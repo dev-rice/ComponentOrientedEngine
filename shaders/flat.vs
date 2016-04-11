@@ -10,4 +10,5 @@ uniform mat3 transformation;
 void main() {
     vec3 position_temp = vec3(position, 1.0) * transformation;
     gl_Position = vec4(position_temp.xy, 0.0, 1.0);
+    TextureCoordinates = texture_coordinates;
 }

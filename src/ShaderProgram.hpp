@@ -22,6 +22,9 @@ public:
     GLint getUniformLocation(string uniform_name);
     GLint getAttributeLocation(string attribute_name);
 
+    string getErrors();
+    bool hasErrors();
+
     GLuint getGLId();
 
 private:
@@ -29,6 +32,8 @@ private:
     void combineShaderPrograms(ShaderFile& vertex_shader, ShaderFile& fragment_shader);
     void bindFragmentDataLocation();
     void link();
+
+    void printErrors();
 
     GLuint gl_shader_id;
 
