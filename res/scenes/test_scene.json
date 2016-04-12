@@ -1,7 +1,9 @@
 {
     "entities": [
         {
-            "NameComponent": "Background",
+            "NameComponent": {
+                "name": "Background"
+            },
             "Transform2DComponent": {
                 "scale_x": 1.0,
                 "scale_y": 1.0,
@@ -19,7 +21,9 @@
         },
 
         {
-            "NameComponent": "Snorlax",
+            "NameComponent": {
+                "name": "Snorlax"
+            },
             "Transform2DComponent": {
                 "scale_x": 0.1,
                 "scale_y": 0.1,
@@ -32,7 +36,9 @@
         },
 
         {
-            "NameComponent": "Arcanine",
+            "NameComponent": {
+                "name": "Arcanine"
+            },
             "Transform2DComponent": {
                 "scale_x": 0.1,
                 "scale_y": 0.1,
@@ -45,7 +51,9 @@
         },
 
         {
-            "NameComponent": "Gengar",
+            "NameComponent": {
+                "name": "Gengar"
+            },
             "Transform2DComponent": {
                 "scale_x": 0.1,
                 "scale_y": 0.1,
@@ -58,7 +66,9 @@
         },
 
         {
-            "NameComponent": "Trainer",
+            "NameComponent": {
+                "name": "Trainer"
+            },
             "Transform2DComponent": {
                 "scale_x": 0.1,
                 "scale_y": 0.1,

@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "includes/json.hpp"
+
 #include "Mesh.hpp"
 
 #include "EntityManager.hpp"
@@ -19,6 +21,11 @@ public:
 
 private:
     Scene(float aspect_ratio, string filename);
+
+    // Functions for file parsing
+    void handleTransform2DComponent(Json::Value entity_json, Entity entity);
+    void handleNameComponent(Json::Value entity_json, Entity entity);
+    void handleSpriteDrawableComponent(Json::Value entity_json, Entity entity);
 
     EntityManager entity_manager;
 

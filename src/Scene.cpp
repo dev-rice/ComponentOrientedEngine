@@ -34,39 +34,15 @@ Scene::Scene(float aspect_ratio, string filename) : aspect_ratio(aspect_ratio) {
         Entity entity = entity_manager.create();
 
         if (entity_json.isMember("Transform2DComponent")) {
-            Json::Value transform2D_json = entity_json["Transform2DComponent"];
-            glm::vec2 scale(transform2D_json["scale_x"].asFloat(), transform2D_json["scale_y"].asFloat() * aspect_ratio);
-            glm::vec2 position(transform2D_json["position_x"].asFloat(), transform2D_json["position_y"].asFloat());
-
-            Transform2D transform2D(scale, position);
-            transform_2D_component_manager.setTransform(entity, transform2D);
-
+            handleTransform2DComponent(entity_json, entity);
         }
 
         if (entity_json.isMember("NameComponent")) {
-            string name = entity_json["name"].asString();
-            name_component_manager.setName(entity, name);
+            handleNameComponent(entity_json, entity);
         }
 
         if (entity_json.isMember("SpriteDrawableComponent")) {
-            Json::Value sprite_drawable_component_json = entity_json["SpriteDrawableComponent"];
-
-            if (sprite_drawable_component_json.isMember("sprite")) {
-                string sprite_filename = sprite_drawable_component_json["sprite"].asString();
-                sprite_drawable_component_manager.setSpriteDrawableComponent(entity, SpriteDrawableComponent(Texture::createFromFile(sprite_filename)));
-
-            } else if (sprite_drawable_component_json.isMember("color")) {
-                Json::Value sprite_color_json = sprite_drawable_component_json["color"];
-                glm::vec4 sprite_color(
-                    sprite_color_json["red"].asFloat(),
-                    sprite_color_json["green"].asFloat(),
-                    sprite_color_json["blue"].asFloat(),
-                    sprite_color_json["alpha"].asFloat()
-                );
-                sprite_drawable_component_manager.setSpriteDrawableComponent(entity, SpriteDrawableComponent(Texture::createFromColor(sprite_color)));
-
-            }
-
+            handleSpriteDrawableComponent(entity_json, entity);
         }
 
     }
@@ -78,4 +54,41 @@ Scene Scene::fromFile(string filename) {
 
 void Scene::update() {
     sprite_drawable_component_manager.update(transform_2D_component_manager, mesh_component_manager, name_component_manager);
+}
+
+void Scene::handleTransform2DComponent(Json::Value entity_json, Entity entity) {
+    Json::Value transform2D_json = entity_json["Transform2DComponent"];
+    glm::vec2 scale(transform2D_json["scale_x"].asFloat(), transform2D_json["scale_y"].asFloat() * aspect_ratio);
+    glm::vec2 position(transform2D_json["position_x"].asFloat(), transform2D_json["position_y"].asFloat());
+
+    Transform2D transform2D(scale, position);
+    transform_2D_component_manager.setTransform(entity, transform2D);
+}
+
+void Scene::handleNameComponent(Json::Value entity_json, Entity entity) {
+    Json::Value name_component_json = entity_json["NameComponent"];
+    string name = name_component_json["name"].asString();
+    name_component_manager.setName(entity, name);
+}
+
+void Scene::handleSpriteDrawableComponent(Json::Value entity_json, Entity entity) {
+
+    Json::Value sprite_drawable_component_json = entity_json["SpriteDrawableComponent"];
+
+    if (sprite_drawable_component_json.isMember("sprite")) {
+        string sprite_filename = sprite_drawable_component_json["sprite"].asString();
+        sprite_drawable_component_manager.setSpriteDrawableComponent(entity, SpriteDrawableComponent(Texture::createFromFile(sprite_filename)));
+
+    } else if (sprite_drawable_component_json.isMember("color")) {
+        Json::Value sprite_color_json = sprite_drawable_component_json["color"];
+        glm::vec4 sprite_color(
+            sprite_color_json["red"].asFloat(),
+            sprite_color_json["green"].asFloat(),
+            sprite_color_json["blue"].asFloat(),
+            sprite_color_json["alpha"].asFloat()
+        );
+        sprite_drawable_component_manager.setSpriteDrawableComponent(entity, SpriteDrawableComponent(Texture::createFromColor(sprite_color)));
+
+    }
+
 }
