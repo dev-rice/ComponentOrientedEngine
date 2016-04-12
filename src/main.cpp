@@ -29,12 +29,11 @@ void handleInputs(Window& window) {
 
 int main(int argc, char* argv[]) {
 
-    Viewport viewport(800, 600);
+    Viewport viewport(1200, 900);
     Window window(viewport, false);
     OpenGLContext gl_context(4, 1, window);
 
-    float aspect_ratio = viewport.getAspectRatio();
-    Scene scene = Scene::fromFile("res/scenes/test_scene.json");
+    Scene scene = Scene::fromFile(viewport, "res/scenes/test_scene.json");
 
     // Display loop
     while(window.isOpen()) {
