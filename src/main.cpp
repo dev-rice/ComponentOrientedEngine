@@ -7,6 +7,7 @@
 #include "Scene.hpp"
 #include "MeshFactory.hpp"
 #include "Mesh.hpp"
+#include "V8Thing.hpp"
 
 using namespace std;
 
@@ -34,6 +35,9 @@ int main(int argc, char* argv[]) {
     OpenGLContext gl_context(4, 1, window);
 
     Scene scene = Scene::fromFile(viewport, "res/scenes/test_scene.json");
+
+    V8Thing v8_thing;
+    v8_thing.runScript("res/scripts/testing_class_script.js");
 
     // Display loop
     while(window.isOpen()) {

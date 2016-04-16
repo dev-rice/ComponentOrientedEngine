@@ -10,7 +10,7 @@ SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJDIR  := bin
 OBJECTS := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
-MAC_LIBRARIES := -framework OpenGl -framework CoreFoundation -I/usr/local/include -lglew -lSOIL `sdl2-config --libs` -ljsoncpp -llua5.1 -ldl
+MAC_LIBRARIES := -framework OpenGl -framework CoreFoundation -I/usr/local/include -lglew -lSOIL `sdl2-config --libs` -ljsoncpp -ldl -I/usr/local -lv8_{base,libbase,snapshot,libplatform}
 LINUX_LIBRARIES := -lGL -lGLEW -I /usr/lib/x86_64-linux-gnu/ -I /usr/local/include -lSOIL -lpthread `sdl2-config --libs` -ljsoncpp
 
 NAME := opengl_playground
@@ -25,7 +25,7 @@ else ifeq ($(PLATFORM),Linux)
 endif
 
 $(NAME): obj/main.o $(SOURCES) $(OBJECTS)
-	$(COMPILER) -std=c++11 -I$(SRCDIR) -I/usr/local/include/lua-5.1/ $(OBJECTS) $(LIBRARIES) -o opengl_playground
+	$(COMPILER) -std=c++11 -I$(SRCDIR) -I/usr/local/ $(OBJECTS) $(LIBRARIES) -o opengl_playground
 
 $(SOURCES): | $(OBJDIR)
 
@@ -33,7 +33,7 @@ $(OBJDIR):
 	mkdir -p $(shell find $(SRCDIR) -type d | sed "s/$(SRCDIR)/$(OBJDIR)/")
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	$(COMPILER) $(COMPILER_FLAGS) -I$(SRCDIR) -I/usr/local/include/lua-5.1/ $< -c -o $@
+	$(COMPILER) $(COMPILER_FLAGS) -I$(SRCDIR) -I/usr/local/ $< -c -o $@
 
 run: $(NAME)
 	./$(NAME)
