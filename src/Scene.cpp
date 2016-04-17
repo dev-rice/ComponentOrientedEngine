@@ -29,9 +29,9 @@ void Scene::update() {
     sprite_drawable_component_manager.update(transform_2D_component_manager, mesh_component_manager, name_component_manager);
 
     Entity some_entity;
-    some_entity.id = 2;
+    some_entity.id = 4;
     Transform2D& some_transform = transform_2D_component_manager.getTransform(some_entity);
-    
+
     v8_thing.runScript("res/scripts/entity_mover.js", some_transform);
 
 }

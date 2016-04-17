@@ -85,7 +85,9 @@ bool Window::isFullscreen() {
 
 
 Uint32 Window::getCreationFlags() {
-    Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS ;
+    Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
+
+    // flags |= SDL_WINDOW_BORDERLESS;
 
     if (isFullscreen()){
         flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
