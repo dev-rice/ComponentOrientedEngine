@@ -44,7 +44,7 @@ V8Thing::~V8Thing() {
     delete platform;
 }
 
-int magic_number = 200;
+int magic_number = 1;
 
 void getMagicNumber(Local<String> property, const PropertyCallbackInfo<Value>& info) {
     info.GetReturnValue().Set(magic_number);
@@ -59,7 +59,9 @@ void GetTransformX(Local<String> property, const PropertyCallbackInfo<Value>& in
     Local<Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    glm::vec2 position_of_center = static_cast<Transform2D*>(ptr)->getPositionOfCenter();
+    Transform2D* transform2D = static_cast<Transform2D*>(ptr);
+
+    glm::vec2 position_of_center = transform2D->getPositionOfCenter();
     info.GetReturnValue().Set(position_of_center.x);
 }
 
@@ -68,8 +70,9 @@ void setTransformX(Local<String> property, Local<Value> value, const PropertyCal
     Local<Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    glm::vec2 position_of_center = static_cast<Transform2D*>(ptr)->getPositionOfCenter();
-    static_cast<Transform2D*>(ptr)->setPositionOfCenter(glm::vec2(value->NumberValue(), position_of_center.y));
+    Transform2D* transform2D = static_cast<Transform2D*>(ptr);
+    glm::vec2 position_of_center = transform2D->getPositionOfCenter();
+    transform2D->setPositionOfCenter(glm::vec2(value->NumberValue(), position_of_center.y));
 }
 
 
