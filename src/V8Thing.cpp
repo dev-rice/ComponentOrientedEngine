@@ -55,8 +55,25 @@ void setMagicNumber(Local<String> property, Local<Value> value, const PropertyCa
     magic_number = value->Int32Value();
 }
 
+void GetTransformX(Local<String> property, const PropertyCallbackInfo<Value>& info) {
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    glm::vec2 position_of_center = static_cast<Transform2D*>(ptr)->getPositionOfCenter();
+    info.GetReturnValue().Set(position_of_center.x);
+}
 
-int V8Thing::runScript(std::string filename) {
+void setTransformX(Local<String> property, Local<Value> value, const PropertyCallbackInfo<void>& info) {
+
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    glm::vec2 position_of_center = static_cast<Transform2D*>(ptr)->getPositionOfCenter();
+    static_cast<Transform2D*>(ptr)->setPositionOfCenter(glm::vec2(value->NumberValue(), position_of_center.y));
+}
+
+
+int V8Thing::runScript(std::string filename, Transform2D& transform2D) {
     Isolate::Scope isolate_scope(isolate);
     HandleScope handle_scope(isolate);
 
@@ -65,6 +82,9 @@ int V8Thing::runScript(std::string filename) {
 
     global->SetAccessor(String::NewFromUtf8(isolate, "magic_number"), getMagicNumber, setMagicNumber);
 
+    global->SetInternalFieldCount(1);
+    global->SetAccessor(String::NewFromUtf8(isolate, "x"), GetTransformX, setTransformX);
+
     Local<Context> context = Context::New(isolate, NULL, global);
     if (context.IsEmpty()) {
         fprintf(stderr, "Error creating context\n");
@@ -72,6 +92,11 @@ int V8Thing::runScript(std::string filename) {
     }
 
     Context::Scope context_scope(context);
+
+    Local<Object> obj = global->NewInstance();
+    Local<External> obj_ptr = External::New(isolate, &transform2D);
+    obj->SetInternalField(0, obj_ptr);
+    context->Global()->Set(String::NewFromUtf8(isolate, "transform2D"), obj);
 
     // Actual runScript code
     const char* str = filename.c_str();
@@ -85,6 +110,9 @@ int V8Thing::runScript(std::string filename) {
     }
     bool success = ExecuteString(source, file_name, false, true);
     while (platform::PumpMessageLoop(platform, isolate)) continue;
+
+    // glm::vec2 position_of_center = transform2D.getPositionOfCenter();
+    // transform2D.setPositionOfCenter(position_of_center + glm::vec2(0.001, 0.001));
 
     if (success) {
         return 0;

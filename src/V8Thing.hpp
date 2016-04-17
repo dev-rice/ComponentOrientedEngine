@@ -9,6 +9,8 @@
 #include <string.h>
 #include <string>
 
+#include "component_managers/Transform2DComponentManager.hpp"
+
 using namespace v8;
 
 const char* ToCString(const String::Utf8Value& value);
@@ -34,7 +36,7 @@ public:
     V8Thing();
     ~V8Thing();
 
-    int runScript(std::string filename);
+    int runScript(std::string filename, Transform2D& transform2D);
 private:
     MaybeLocal<String> ReadFile(const char* name);
     bool ExecuteString(Local<String> source, Local<Value> name, bool print_result, bool report_exceptions);

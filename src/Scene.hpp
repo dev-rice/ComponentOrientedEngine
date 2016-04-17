@@ -14,6 +14,7 @@
 #include "component_managers/SpriteDrawableComponentManager.hpp"
 
 #include "Viewport.hpp"
+#include "V8Thing.hpp"
 
 using namespace std;
 
@@ -47,6 +48,7 @@ private:
     SpriteDrawableComponentManager sprite_drawable_component_manager;
 
     Viewport viewport;
+    V8Thing v8_thing;
 
     float aspect_ratio;
 

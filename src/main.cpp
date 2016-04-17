@@ -36,9 +36,6 @@ int main(int argc, char* argv[]) {
 
     Scene scene = Scene::fromFile(viewport, "res/scenes/test_scene.json");
 
-    V8Thing v8_thing;
-    v8_thing.runScript("res/scripts/testing_class_script.js");
-
     // Display loop
     while(window.isOpen()) {
         window.clearBuffers();
