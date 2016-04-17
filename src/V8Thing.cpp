@@ -46,6 +46,15 @@ V8Thing::~V8Thing() {
 int magic_number = 1;
 
 void getMagicNumber(Local<String> property, const PropertyCallbackInfo<Value>& info) {
+
+    std::cout << "getMagicNumber\n";
+
+    Local<Object> self = info.Holder();
+    Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+    void* ptr = wrap->Value();
+    Transform2D* transform2D = static_cast<Transform2D*>(ptr);
+    std::cout << "transform2D_ptr = " << transform2D << "\n\n";
+
     info.GetReturnValue().Set(magic_number);
 }
 
@@ -54,11 +63,15 @@ void setMagicNumber(Local<String> property, Local<Value> value, const PropertyCa
     magic_number = value->Int32Value();
 }
 
-void GetTransformX(Local<String> property, const PropertyCallbackInfo<Value>& info) {
+void getTransformX(Local<String> property, const PropertyCallbackInfo<Value>& info) {
+
+    std::cout << "getTransformX\n";
+
     Local<Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
     Transform2D* transform2D = static_cast<Transform2D*>(ptr);
+    std::cout << "transform2D_ptr = " << transform2D << "\n\n";
 
     glm::vec2 position_of_center = transform2D->getPositionOfCenter();
     info.GetReturnValue().Set(position_of_center.x);
@@ -80,12 +93,13 @@ int V8Thing::runScript(std::string filename, Transform2D& transform2D) {
     HandleScope handle_scope(isolate);
 
     Local<ObjectTemplate> global = ObjectTemplate::New(isolate);
+    global->SetInternalFieldCount(1);
+
     global->Set(String::NewFromUtf8(isolate, "print"), FunctionTemplate::New(isolate, Print));
 
     global->SetAccessor(String::NewFromUtf8(isolate, "magic_number"), getMagicNumber, setMagicNumber);
 
-    global->SetInternalFieldCount(1);
-    global->SetAccessor(String::NewFromUtf8(isolate, "x"), GetTransformX, setTransformX);
+    global->SetAccessor(String::NewFromUtf8(isolate, "x"), getTransformX, setTransformX);
 
     Local<Context> context = Context::New(isolate, NULL, global);
     if (context.IsEmpty()) {
