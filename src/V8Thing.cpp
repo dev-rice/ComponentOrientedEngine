@@ -1,4 +1,5 @@
 #include "V8Thing.hpp"
+#include <iostream>
 
 // Extracts a C string from a V8 Utf8Value.
 const char* ToCString(const String::Utf8Value& value) {
@@ -27,11 +28,9 @@ void Print(const FunctionCallbackInfo<Value>& args) {
 
 V8Thing::V8Thing() {
     V8::InitializeICU();
-    // V8::InitializeExternalStartupData(argv[0]);
     platform = platform::CreateDefaultPlatform();
     V8::InitializePlatform(platform);
     V8::Initialize();
-    // V8::SetFlagsFromCommandLine(&argc, argv, true);
     create_params.array_buffer_allocator = &array_buffer_allocator;
     isolate = Isolate::New(create_params);
 
@@ -111,11 +110,9 @@ int V8Thing::runScript(std::string filename, Transform2D& transform2D) {
         fprintf(stderr, "Error reading '%s'\n", str);
         return 0;
     }
+
     bool success = ExecuteString(source, file_name, false, true);
     while (platform::PumpMessageLoop(platform, isolate)) continue;
-
-    // glm::vec2 position_of_center = transform2D.getPositionOfCenter();
-    // transform2D.setPositionOfCenter(position_of_center + glm::vec2(0.001, 0.001));
 
     if (success) {
         return 0;
