@@ -47,13 +47,9 @@ int magic_number = 1;
 
 void getMagicNumber(Local<String> property, const PropertyCallbackInfo<Value>& info) {
 
-    std::cout << "getMagicNumber\n";
-
     Local<Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
-    Transform2D* transform2D = static_cast<Transform2D*>(ptr);
-    std::cout << "transform2D_ptr = " << transform2D << "\n\n";
 
     info.GetReturnValue().Set(magic_number);
 }
@@ -65,13 +61,17 @@ void setMagicNumber(Local<String> property, Local<Value> value, const PropertyCa
 
 void getTransformX(Local<String> property, const PropertyCallbackInfo<Value>& info) {
 
-    std::cout << "getTransformX\n";
+    // info only contains the internal object pointer when you call this function from javascript with that object pointer name
+    // i.e:
+    //    This works fine
+    //      transform2D.x
+    //    But this does not (ptr is NULL)
+    //      x
 
     Local<Object> self = info.Holder();
     Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
     void* ptr = wrap->Value();
     Transform2D* transform2D = static_cast<Transform2D*>(ptr);
-    std::cout << "transform2D_ptr = " << transform2D << "\n\n";
 
     glm::vec2 position_of_center = transform2D->getPositionOfCenter();
     info.GetReturnValue().Set(position_of_center.x);
