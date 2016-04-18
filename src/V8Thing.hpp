@@ -15,7 +15,7 @@ using namespace v8;
 
 const char* ToCString(const String::Utf8Value& value);
 
-class ShellArrayBufferAllocator : public ArrayBuffer::Allocator {
+class GameArrayBufferAllocator : public ArrayBuffer::Allocator {
 public:
     virtual void* Allocate(size_t length) {
         void* data = AllocateUninitialized(length);
@@ -44,11 +44,11 @@ private:
     void destroyV8();
 
     bool executeScript(std::string filename);
-    bool ExecuteString(Local<String> source, Local<Value> name, bool print_result, bool report_exceptions);
+    bool executeString(Local<String> source, Local<Value> name, bool print_result, bool report_exceptions);
 
 
     Platform* platform;
-    ShellArrayBufferAllocator array_buffer_allocator;
+    GameArrayBufferAllocator array_buffer_allocator;
     Isolate::CreateParams create_params;
     Isolate* isolate;
 

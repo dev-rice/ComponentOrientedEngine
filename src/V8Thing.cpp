@@ -137,7 +137,7 @@ bool V8Thing::executeScript(std::string filename) {
         return 0;
     }
 
-    bool success = ExecuteString(source, file_name, false, true);
+    bool success = executeString(source, file_name, false, true);
     while (platform::PumpMessageLoop(platform, isolate)) continue;
 
     if (success) {
@@ -170,7 +170,7 @@ MaybeLocal<String> V8Thing::ReadFile(const char* name) {
 }
 
 // Executes a string within the current v8 context.
-bool V8Thing::ExecuteString(Local<String> source, Local<Value> name, bool print_result, bool report_exceptions) {
+bool V8Thing::executeString(Local<String> source, Local<Value> name, bool print_result, bool report_exceptions) {
 
     HandleScope handle_scope(isolate);
     TryCatch try_catch(isolate);
