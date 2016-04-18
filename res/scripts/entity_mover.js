@@ -1,5 +1,5 @@
-var move_by = 0.005;
-var border = 0.9;
+var move_by = 0.001;
+var border = 0.005;
 var forward_direction = 1;
 var backward_direction = 0
 
