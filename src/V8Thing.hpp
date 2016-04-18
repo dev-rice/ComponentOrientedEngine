@@ -39,6 +39,8 @@ public:
     int runScript(std::string filename, Transform2D& transform2D);
 private:
     MaybeLocal<String> ReadFile(const char* name);
+
+    bool executeScript(std::string filename);
     bool ExecuteString(Local<String> source, Local<Value> name, bool print_result, bool report_exceptions);
 
 

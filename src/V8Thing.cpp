@@ -114,7 +114,11 @@ int V8Thing::runScript(std::string filename, Transform2D& transform2D) {
     obj->SetInternalField(0, obj_ptr);
     context->Global()->Set(String::NewFromUtf8(isolate, "transform2D"), obj);
 
-    // Actual runScript code
+    bool script_ran_successfully = executeScript(filename);
+    return script_ran_successfully;
+}
+
+bool V8Thing::executeScript(std::string filename) {
     const char* str = filename.c_str();
     Local<String> file_name =
       String::NewFromUtf8(isolate, str, NewStringType::kNormal)
@@ -133,7 +137,6 @@ int V8Thing::runScript(std::string filename, Transform2D& transform2D) {
     } else {
         return 1;
     }
-    // Actual runScript ends here
 }
 
 // Reads a file into a v8 string.
