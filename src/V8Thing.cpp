@@ -72,6 +72,14 @@ void Print(const FunctionCallbackInfo<Value>& args) {
 }
 
 V8Thing::V8Thing() {
+    initializeV8();
+}
+
+V8Thing::~V8Thing() {
+    destroyV8();
+}
+
+void V8Thing::initializeV8() {
     V8::InitializeICU();
     platform = platform::CreateDefaultPlatform();
     V8::InitializePlatform(platform);
@@ -81,7 +89,7 @@ V8Thing::V8Thing() {
 
 }
 
-V8Thing::~V8Thing() {
+void V8Thing::destroyV8() {
     isolate->Dispose();
     V8::Dispose();
     V8::ShutdownPlatform();

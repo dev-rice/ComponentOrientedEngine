@@ -40,6 +40,9 @@ public:
 private:
     MaybeLocal<String> ReadFile(const char* name);
 
+    void initializeV8();
+    void destroyV8();
+
     bool executeScript(std::string filename);
     bool ExecuteString(Local<String> source, Local<Value> name, bool print_result, bool report_exceptions);
 
