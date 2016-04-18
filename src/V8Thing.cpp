@@ -6,43 +6,6 @@ const char* ToCString(const String::Utf8Value& value) {
     return *value ? *value : "<string conversion failed>";
 }
 
-// The callback that is invoked by v8 whenever the JavaScript 'print'
-// function is called.  Prints its arguments on stdout separated by
-// spaces and ending with a newline.
-void Print(const FunctionCallbackInfo<Value>& args) {
-    bool first = true;
-    for (int i = 0; i < args.Length(); i++) {
-        HandleScope handle_scope(args.GetIsolate());
-        if (first) {
-            first = false;
-        } else {
-            printf(" ");
-        }
-        String::Utf8Value str(args[i]);
-        const char* cstr = ToCString(str);
-        printf("%s", cstr);
-    }
-    printf("\n");
-    fflush(stdout);
-}
-
-V8Thing::V8Thing() {
-    V8::InitializeICU();
-    platform = platform::CreateDefaultPlatform();
-    V8::InitializePlatform(platform);
-    V8::Initialize();
-    create_params.array_buffer_allocator = &array_buffer_allocator;
-    isolate = Isolate::New(create_params);
-
-}
-
-V8Thing::~V8Thing() {
-    isolate->Dispose();
-    V8::Dispose();
-    V8::ShutdownPlatform();
-    delete platform;
-}
-
 int magic_number = 1;
 
 void getMagicNumber(Local<String> property, const PropertyCallbackInfo<Value>& info) {
@@ -87,6 +50,43 @@ void setTransformX(Local<String> property, Local<Value> value, const PropertyCal
     transform2D->setPositionOfCenter(glm::vec2(value->NumberValue(), position_of_center.y));
 }
 
+
+// The callback that is invoked by v8 whenever the JavaScript 'print'
+// function is called.  Prints its arguments on stdout separated by
+// spaces and ending with a newline.
+void Print(const FunctionCallbackInfo<Value>& args) {
+    bool first = true;
+    for (int i = 0; i < args.Length(); i++) {
+        HandleScope handle_scope(args.GetIsolate());
+        if (first) {
+            first = false;
+        } else {
+            printf(" ");
+        }
+        String::Utf8Value str(args[i]);
+        const char* cstr = ToCString(str);
+        printf("%s", cstr);
+    }
+    printf("\n");
+    fflush(stdout);
+}
+
+V8Thing::V8Thing() {
+    V8::InitializeICU();
+    platform = platform::CreateDefaultPlatform();
+    V8::InitializePlatform(platform);
+    V8::Initialize();
+    create_params.array_buffer_allocator = &array_buffer_allocator;
+    isolate = Isolate::New(create_params);
+
+}
+
+V8Thing::~V8Thing() {
+    isolate->Dispose();
+    V8::Dispose();
+    V8::ShutdownPlatform();
+    delete platform;
+}
 
 int V8Thing::runScript(std::string filename, Transform2D& transform2D) {
     Isolate::Scope isolate_scope(isolate);
